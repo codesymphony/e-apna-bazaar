@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { SellerEntity } from "./seller.identity";
+import { SellerEntity } from "./seller.entity";
 
 @Injectable()
 export class SellerService {
@@ -31,7 +31,7 @@ export class SellerService {
     }
   }
 
-  async createSeller (data) {
+  async createSellerApi (data) {
     try {
       const seller = this.sellerRepository.create(data)
 
@@ -44,9 +44,11 @@ export class SellerService {
     }
   }
 
-  async updateSeller (id, data) {
+  async updateSellerApi (data) {
+
+    const { id, info} = data
     try {
-      await this.sellerRepository.update({id}, data)
+      await this.sellerRepository.update({id}, info)
 
       const result = await this.sellerRepository.findOne({id})
 
@@ -57,7 +59,7 @@ export class SellerService {
     }
   }
 
-  async deleteSeller (id) {
+  async deleteSellerApi (id) {
     try {
       await this.sellerRepository.delete({id})
 

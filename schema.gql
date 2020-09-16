@@ -14,16 +14,44 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type SellerDTO {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  sellerCategory: String!
+  description: String!
+  email: String!
+  mobileNumber: String!
+  isActive: Boolean!
+  isVerified: Boolean!
+}
+
 type Query {
   getAllIdeas: [IdeaDTO!]!
   ideaById(id: String!): IdeaDTO!
+  getAllSellers: [SellerDTO!]!
+  getSellerById(id: String!): SellerDTO!
 }
 
 type Mutation {
   newIdea(input: CreateUpdateInput!): IdeaDTO!
+  createSeller(input: SellerInput!): SellerDTO!
+  updateSeller(input: SellerUpdate!): SellerDTO!
 }
 
 input CreateUpdateInput {
   idea: String!
   desc: String!
+}
+
+input SellerInput {
+  sellerCategory: String!
+  description: String!
+  email: String!
+  mobileNumber: String!
+}
+
+input SellerUpdate {
+  id: String!
+  info: SellerInput!
 }

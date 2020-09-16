@@ -18,6 +18,12 @@ export class SellerEntity {
 
   @Column('text') description: string
 
+  
+  @Column('text') email: string
+  
+
+  @Column('text') mobileNumber: string
+
 
   @Column('boolean', { default: false }) isActive: boolean
 
