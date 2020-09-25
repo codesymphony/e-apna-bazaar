@@ -21,19 +21,19 @@ export class UserInput {
   @Field({ nullable: true })
   readonly aadhaarNumber: string
 
-  @Field()
+  @Field({ nullable: true })
   readonly addressLine1: string
 
-  @Field()
+  @Field({ nullable: true })
   readonly addressLine2: string
 
-  @Field()
+  @Field({ nullable: true })
   readonly city: string
 
-  @Field()
+  @Field({ nullable: true })
   readonly state: string
 
-  @Field()
+  @Field({ nullable: true })
   readonly country: string
 
   @Field()

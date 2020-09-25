@@ -28,19 +28,19 @@ export class UserEntity {
   @Column('text', { nullable: true }) aadhaarNumber: string
 
 
-  @Column('text') addressLine1: string
+  @Column('text', { nullable: true }) addressLine1: string
 
 
   @Column('text', { nullable: true }) addressLine2: string
 
 
-  @Column('text') city: string
+  @Column('text', { nullable: true }) city: string
 
 
-  @Column('text') state: string
+  @Column('text', { nullable: true }) state: string
 
 
-  @Column('text') country: string
+  @Column('text', { nullable: true }) country: string
 
 
   @Column('text') mobileNumber: string
