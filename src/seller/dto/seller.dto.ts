@@ -2,7 +2,6 @@ import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export class SellerDTO {
-
   @Field()
   readonly id: string;
 

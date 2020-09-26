@@ -2,7 +2,6 @@ import { Field, InputType } from "@nestjs/graphql";
 
 @InputType()
 export class UserInput {
-
   @Field()
   readonly email: string;
 
@@ -38,5 +37,4 @@ export class UserInput {
 
   @Field()
   readonly mobileNumber: string
-
 }

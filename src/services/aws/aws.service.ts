@@ -1,33 +1,42 @@
 import { Injectable } from "@nestjs/common";
-import AmazonCognitoIdentity, { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
-import config from '../../config/config.json'
+import {
+  CognitoUserPool,
+  CognitoUserAttribute,
+  AuthenticationDetails,
+  CognitoUser,
+  ICognitoUserPoolData,
+} from 'amazon-cognito-identity-js';
+
+import { CognitoAuthInput, CognitoAuthTokens } from '../../types'
 
 @Injectable()
 export class AwsService {
-  poolData;
-  userPool;
+  poolData: ICognitoUserPoolData;
+
+  userPool: CognitoUserPool;
+
   constructor() {
     this.poolData = {
       UserPoolId: "us-east-2_YjqF6maQn",
       ClientId: "26nmefc6aq827s3ud05fgd6b03",
     }
-    console.log(this.poolData)
+
     this.userPool = new CognitoUserPool(this.poolData)
   }
 
-  addUserToPool(data) {
+  addUserToPool(data: CognitoAuthInput) {
     const { email, password } = data;
+
     const emailData = {
       Name: 'email',
       Value: email
     }
 
     const emailAttribute = new CognitoUserAttribute(emailData)
-    console.log(data)
+
     return new Promise((resolve, reject) => {
-      this.userPool.signUp(email, password, [emailAttribute], null, (err, data) => {
+      this.userPool.signUp(email, password, [emailAttribute], [], (err, data) => {
         if (err) {
-          console.log('errr#####', err)
           reject(err)
         }
         else {
@@ -35,21 +44,19 @@ export class AwsService {
           resolve(data)
         }
       })
-
     })
-
   }
 
-  async singIn(info) {
+  async signIn(input: CognitoAuthInput): Promise<CognitoAuthTokens> {
     const loginDetails = {
-      Username: info.email,
-      Password: info.password
+      Username: input.email,
+      Password: input.password
     }
 
     const authenticationDetails = new AuthenticationDetails(loginDetails);
 
     const userDetails = {
-      Username: info.email,
+      Username: input.email,
       Pool: this.userPool
     }
 
@@ -58,7 +65,6 @@ export class AwsService {
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: data => {
-          console.log('inside promise', data)
           const tokens = {
             idToken: data.getIdToken().getJwtToken(),
             refreshToken: data.getRefreshToken().getToken(),

@@ -1,5 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+
 import { AwsService } from "src/services/aws/aws.service";
 import { Repository } from "typeorm";
 import { UserEntity } from "./user.entity";
@@ -24,6 +25,7 @@ export class UserService {
 
   async signUpUser(data) {
     const { email, password } = data
+  
     try {
 
       const findExisted = await this.userRepository.findOne({ where: { email: email } })
@@ -31,9 +33,11 @@ export class UserService {
       if (findExisted) {
         throw new HttpException('User with email already exists', HttpStatus.BAD_REQUEST)
       }
+
       else {
         const resultFromAws = await this.awsService.addUserToPool({ email, password })
         console.log('service', resultFromAws)
+
         const userData = Object.assign({}, data)
         delete userData.password
         const user = this.userRepository.create(data)
@@ -47,12 +51,15 @@ export class UserService {
     }
   }
 
-  async signIn(email, password) {
+  async signIn(email: string, password: string) {
     try {
-
       const findExisted = await this.userRepository.findOne({ where: { "email": email } })
 
-      const resultFromAws = await this.awsService.singIn({ email, password })
+      if (!findExisted) {
+        throw new HttpException('User with email does not exist', HttpStatus.NOT_FOUND)
+      }
+
+      const resultFromAws = await this.awsService.signIn({ email, password })
 
       return {
         user: findExisted,

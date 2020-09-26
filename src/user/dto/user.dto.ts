@@ -2,7 +2,6 @@ import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export class UserDTO {
-
   @Field()
   readonly id: string;
 
@@ -17,9 +16,6 @@ export class UserDTO {
 
   @Field()
   readonly firstName: string
-
-  @Field()
-  readonly password: string
 
   @Field()
   readonly lastName: string
@@ -47,5 +43,4 @@ export class UserDTO {
 
   @Field()
   readonly mobileNumber: string
-
 }

@@ -1,6 +1,7 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
+
 import { UserDTO } from "./dto/user.dto";
-import { LoginDTO } from "./dto/userLogin.dto";
+import { AuthInfoDTO } from "./dto/auth-info.dto";
 import { UserInput } from "./inputs/user.create.input";
 import { UserService } from "./user.service";
 
@@ -24,17 +25,16 @@ export class UserResolver {
   async getAllUsers() {
     const result = await this.userService.getAllUsers()
 
-    return result
+    return result || []
   }
 
-  @Mutation(() => LoginDTO)
-  async signin(
+  @Query(() => AuthInfoDTO)
+  async signIn(
     @Args('email') email: string,
     @Args('password') password: string
   ) {
     const result = await this.userService.signIn(email, password)
 
-    console.log(result)
     return result
   }
 
