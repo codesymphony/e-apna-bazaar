@@ -51,13 +51,13 @@ type Query {
   getAllSellers: [SellerDTO!]!
   getSellerById(id: String!): SellerDTO!
   getAllUsers: [UserDTO!]!
-  signIn(password: String!, email: String!): AuthInfoDTO!
+  signinUser(password: String!, email: String!): AuthInfoDTO!
 }
 
 type Mutation {
   createSeller(input: SellerInput!): SellerDTO!
   updateSeller(input: SellerUpdate!): SellerDTO!
-  signUp(input: UserInput!): UserDTO!
+  createUser(input: UserInput!): UserDTO!
 }
 
 input SellerInput {

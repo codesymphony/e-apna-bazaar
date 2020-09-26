@@ -13,7 +13,7 @@ export class UserResolver {
   }
 
   @Mutation(() => UserDTO)
-  async signUp(
+  async createUser(
     @Args('input') input: UserInput
   ) {
     const result = await this.userService.signUpUser(input)
@@ -29,7 +29,7 @@ export class UserResolver {
   }
 
   @Query(() => AuthInfoDTO)
-  async signIn(
+  async signinUser(
     @Args('email') email: string,
     @Args('password') password: string
   ) {
