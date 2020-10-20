@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { SellerModule } from './seller/seller.module';
 import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
+import { SubCategoryModule } from './subCategory/subCategory.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { CategoryModule } from './category/category.module';
     TypeOrmModule.forRoot(),
     SellerModule,
     UserModule,
-    CategoryModule
+    CategoryModule,
+    SubCategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],
