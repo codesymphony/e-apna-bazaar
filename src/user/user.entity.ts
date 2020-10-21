@@ -1,5 +1,7 @@
 
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, VersionColumn } from 'typeorm'
+
+import { UserGenderEnum } from '../types';
 
 @Entity('user')
 export class UserEntity {
@@ -9,27 +11,32 @@ export class UserEntity {
 
   @CreateDateColumn() updatedAt!: string
 
-  @Column('text') email!: string
+  @VersionColumn() version!: number;
 
-  @Column('text') firstName!: string
+  @Column('varchar') email!: string
 
-  @Column('text') lastName!: string
+  @Column('varchar') firstName!: string
 
-  @Column('text') gender!: string
+  @Column('varchar') lastName!: string
 
-  @Column('text', { nullable: true }) aadhaarNumber!: string
+  @Column({
+    type: 'enum',
+    enum: UserGenderEnum,
+  }) gender!: string
 
-  @Column('text', { nullable: true }) addressLine1!: string
+  @Column('varchar') mobileNumber!: string
 
-  @Column('text', { nullable: true }) addressLine2!: string
+  @Column('varchar', { nullable: true }) aadhaarNumber!: string
 
-  @Column('text', { nullable: true }) city!: string
+  @Column('varchar', { nullable: true, length: 400 }) addressLine1!: string
 
-  @Column('text', { nullable: true }) state!: string
+  @Column('varchar', { nullable: true, length: 400 }) addressLine2!: string
 
-  @Column('text', { nullable: true }) country!: string
+  @Column('varchar', { nullable: true }) city!: string
 
-  @Column('text') mobileNumber!: string
+  @Column('varchar', { nullable: true }) state!: string
+
+  @Column('varchar', { nullable: true }) country!: string
 
   @Column('boolean', { default: false }) isActive!: boolean
 

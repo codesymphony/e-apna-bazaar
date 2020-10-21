@@ -10,7 +10,7 @@ import 'node-fetch';
 
 import { AppModule } from './app.module';
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 4000;
 
 const winstonLogger = WinstonModule.createLogger({
   level: 'debug',

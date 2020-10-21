@@ -1,4 +1,10 @@
-import { Field, InputType } from "@nestjs/graphql";
+import { Field, InputType, registerEnumType } from "@nestjs/graphql";
+
+import { UserGenderEnum } from '../../types';
+
+registerEnumType(UserGenderEnum, {
+  name: 'UserGender',
+});
 
 @InputType()
 export class UserInput {
@@ -14,8 +20,8 @@ export class UserInput {
   @Field()
   readonly lastName!: string
 
-  @Field()
-  readonly gender!: string
+  @Field(() => UserGenderEnum)
+  readonly gender!: UserGenderEnum
 
   @Field({ nullable: true })
   readonly aadhaarNumber!: string

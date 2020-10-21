@@ -23,11 +23,12 @@ type UserDTO {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  emai: String!
+  email: String!
   firstName: String!
   password: String!
   lastName: String!
   gender: String!
+  version: Int!
   aadhaarNumber: String
   addressLine1: String
   addressLine2: String
@@ -93,7 +94,7 @@ input UserInput {
   firstName: String!
   password: String!
   lastName: String!
-  gender: String!
+  gender: UserGender!
   aadhaarNumber: String
   addressLine1: String
   addressLine2: String
@@ -101,6 +102,12 @@ input UserInput {
   state: String
   country: String
   mobileNumber: String!
+}
+
+enum UserGender {
+  MALE
+  FEMALE
+  OTHER
 }
 
 input CategoryInput {

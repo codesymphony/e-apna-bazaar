@@ -37,5 +37,4 @@ export class UserResolver {
     console.log(result)
     return result
   }
-
 }
