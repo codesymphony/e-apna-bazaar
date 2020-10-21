@@ -12,62 +12,62 @@ export class SellerService {
 
   async getAllSellersApi () {
     try {
-      const result = this.sellerRepository.find()
+      const result = this.sellerRepository.find();
 
-      return result
+      return result;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
 
   async getSellerByIdApi (id: string) {
     try {
-      const result = this.sellerRepository.findOne({where: {id}})
+      const result = this.sellerRepository.findOne({where: {id}});
 
-      return result
+      return result;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   async createSellerApi (data) {
     try {
-      const seller = this.sellerRepository.create(data)
+      const seller = this.sellerRepository.create(data);
 
-      await this.sellerRepository.save(seller)
+      await this.sellerRepository.save(seller);
 
-      return seller
+      return seller;
 
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   async updateSellerApi (data) {
 
-    const { id, info} = data
+    const { id, info} = data;
     try {
-      await this.sellerRepository.update({id}, info)
+      await this.sellerRepository.update({id}, info);
 
-      const result = await this.sellerRepository.findOne({id})
+      const result = await this.sellerRepository.findOne({id});
 
-      return result
+      return result;
 
     } catch(error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
   async deleteSellerApi (id) {
     try {
-      await this.sellerRepository.delete({id})
+      await this.sellerRepository.delete({id});
 
       return {
         deleted: true
-      }
+      };
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 } 

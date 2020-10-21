@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GraphQLModule } from '@nestjs/graphql'
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { GraphQLModule } from '@nestjs/graphql';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { SellerModule } from './seller/seller.module';
 import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';

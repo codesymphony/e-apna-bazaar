@@ -13,45 +13,45 @@ export class CategoryService {
 
   async getAllCategories() {
     try {
-      const result = await this.categoryRespository.find({})
+      const result = await this.categoryRespository.find({});
 
-      return result
+      return result;
     } catch (err) {
-      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async saveCategory(input: ICategoryInput) {
-    const { categoryName } = input
+    const { categoryName } = input;
     try {
-      const findExisted = await this.categoryRespository.findOne({ where: { categoryName } })
-      console.log(findExisted)
+      const findExisted = await this.categoryRespository.findOne({ where: { categoryName } });
+      console.log(findExisted);
       if (findExisted) {
-        throw new HttpException('Category already exists', HttpStatus.BAD_REQUEST)
+        throw new HttpException('Category already exists', HttpStatus.BAD_REQUEST);
       }
-      const result = this.categoryRespository.create({ categoryName })
+      const result = this.categoryRespository.create({ categoryName });
 
-      await this.categoryRespository.save(result)
+      await this.categoryRespository.save(result);
 
-      return result
+      return result;
     } catch (err) {
-      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async deleteCategory(categoryId: string) {
     try {
-      const findExisted = await this.categoryRespository.findOne({ where: { id: categoryId } })
+      const findExisted = await this.categoryRespository.findOne({ where: { id: categoryId } });
 
       if (!findExisted) {
-        throw new HttpException('Category not found', HttpStatus.BAD_REQUEST)
+        throw new HttpException('Category not found', HttpStatus.BAD_REQUEST);
       }
 
-      await this.categoryRespository.remove(findExisted)
+      await this.categoryRespository.remove(findExisted);
 
-      return "delete success"
+      return "delete success";
     } catch (err) {
-      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

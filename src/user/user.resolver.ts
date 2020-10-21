@@ -15,16 +15,16 @@ export class UserResolver {
   async signUp(
     @Args('input') input: UserInput
   ) {
-    const result = await this.userService.signUpUser(input)
+    const result = await this.userService.signUpUser(input);
 
-    return result
+    return result;
   }
 
   @Query(() => [UserDTO])
   async getAllUsers() {
-    const result = await this.userService.getAllUsers()
+    const result = await this.userService.getAllUsers();
 
-    return result
+    return result;
   }
 
   @Mutation(() => LoginDTO)
@@ -32,9 +32,9 @@ export class UserResolver {
     @Args('email') email: string,
     @Args('password') password: string
   ) {
-    const result = await this.userService.signIn(email, password)
+    const result = await this.userService.signIn(email, password);
 
-    console.log(result)
-    return result
+    console.log(result);
+    return result;
   }
 }

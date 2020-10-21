@@ -1,5 +1,5 @@
 
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, VersionColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, VersionColumn } from 'typeorm';
 
 import { UserGenderEnum } from '../types';
 

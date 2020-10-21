@@ -1,11 +1,11 @@
-import 'dotenv/config'
+import 'dotenv/config';
 
 import { NestFactory } from '@nestjs/core';
 import { WinstonModule, utilities as nestWinstonModuleUtilities } from 'nest-winston';
 import * as winston from 'winston';
 import morgan from 'morgan';
 import kill from 'kill-port';
-import cors from 'cors'
+import cors from 'cors';
 import 'node-fetch';
 
 import { AppModule } from './app.module';
@@ -58,10 +58,10 @@ async function bootstrap() {
     {
       stream: myStream,
     }
-  ))
+  ));
   app.use(cors());
 
   await app.listen(port);
-  winstonLogger.log(`Server running on http://localhost:${port}`, 'Bootstrap')
+  winstonLogger.log(`Server running on http://localhost:${port}`, 'Bootstrap');
 }
 bootstrap();

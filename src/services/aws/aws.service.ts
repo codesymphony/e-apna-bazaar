@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import AmazonCognitoIdentity, { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
-import config from '../../config/config.json'
+import config from '../../config/config.json';
 
 @Injectable()
 export class AwsService {
@@ -10,9 +10,9 @@ export class AwsService {
     this.poolData = {
       UserPoolId: "us-east-2_YjqF6maQn",
       ClientId: "26nmefc6aq827s3ud05fgd6b03",
-    }
-    console.log(this.poolData)
-    this.userPool = new CognitoUserPool(this.poolData)
+    };
+    console.log(this.poolData);
+    this.userPool = new CognitoUserPool(this.poolData);
   }
 
   addUserToPool(data) {
@@ -20,23 +20,23 @@ export class AwsService {
     const emailData = {
       Name: 'email',
       Value: email
-    }
+    };
 
-    const emailAttribute = new CognitoUserAttribute(emailData)
-    console.log(data)
+    const emailAttribute = new CognitoUserAttribute(emailData);
+    console.log(data);
     return new Promise((resolve, reject) => {
       this.userPool.signUp(email, password, [emailAttribute], null, (err, data) => {
         if (err) {
-          console.log('errr#####', err)
-          reject(err)
+          console.log('errr#####', err);
+          reject(err);
         }
         else {
-          console.log(data)
-          resolve(data)
+          console.log(data);
+          resolve(data);
         }
-      })
+      });
 
-    })
+    });
 
   }
 
@@ -44,32 +44,32 @@ export class AwsService {
     const loginDetails = {
       Username: info.email,
       Password: info.password
-    }
+    };
 
     const authenticationDetails = new AuthenticationDetails(loginDetails);
 
     const userDetails = {
       Username: info.email,
       Pool: this.userPool
-    }
+    };
 
     const cognitoUser = new CognitoUser(userDetails);
 
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: data => {
-          console.log('inside promise', data)
+          console.log('inside promise', data);
           const tokens = {
             idToken: data.getIdToken().getJwtToken(),
             refreshToken: data.getRefreshToken().getToken(),
             accessToken: data.getAccessToken().getJwtToken()
-          }
-          resolve(tokens)
+          };
+          resolve(tokens);
         },
         onFailure: err => {
-          reject(err)
+          reject(err);
         }
-      })
-    })
+      });
+    });
   }
 }

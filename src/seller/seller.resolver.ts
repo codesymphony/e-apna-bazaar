@@ -13,27 +13,27 @@ export class SellerResolver {
   @Query(() => [SellerDTO])
   async getAllSellers() {
 
-    const result = this.sellerService.getAllSellersApi()
+    const result = this.sellerService.getAllSellersApi();
 
-    return result
+    return result;
   }
 
   @Mutation(() => SellerDTO)
   async createSeller (
     @Args('input') input: SellerInput
   ) {
-    const result = await this.sellerService.createSellerApi(input)
+    const result = await this.sellerService.createSellerApi(input);
 
-    return result
+    return result;
   }
   
   @Query(() => SellerDTO)
   async getSellerById (
     @Args('id') id: string
   ) {
-    const result = await this.sellerService.getSellerByIdApi(id)
+    const result = await this.sellerService.getSellerByIdApi(id);
 
-    return result
+    return result;
   }
 
   @Mutation(() => SellerDTO)
@@ -41,8 +41,8 @@ export class SellerResolver {
     @Args('input') input: SellerUpdate
   )
    {
-     const result = await this.sellerService.updateSellerApi(input)
+     const result = await this.sellerService.updateSellerApi(input);
 
-     return result
+     return result;
    }
 }
