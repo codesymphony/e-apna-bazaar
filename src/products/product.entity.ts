@@ -4,17 +4,16 @@ import { SkuEntity } from './sku.entity'
 
 @Entity('product')
 export class ProductEntity {
+  @PrimaryGeneratedColumn('uuid') id!: string
 
-  @PrimaryGeneratedColumn('uuid') id: string
+  @Column('text') productName!: string
 
-  @Column('text') productName: string
+  @Column('text') productDesc!: string
 
-  @Column('text') productDesc: string
+  @OneToMany(() => CategoryEntity, category => category.product)
+  categories!: CategoryEntity[]
 
-  @OneToMany(type => CategoryEntity, category => category.product)
-  categories: CategoryEntity[]
-
-  @OneToMany(type => SkuEntity, sku => sku.product)
-  skus: SkuEntity[]
+  @OneToMany(() => SkuEntity, sku => sku.product)
+  skus!: SkuEntity[]
 
 }

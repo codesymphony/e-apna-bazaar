@@ -3,11 +3,9 @@ import { SellerInput } from "./seller.input";
 
 @InputType()
 export class SellerUpdate {
+  @Field()
+  readonly id!: string;
 
   @Field()
-  readonly id: string;
-
-  @Field()
-  readonly info: SellerInput;
-
+  readonly info!: SellerInput;
 }

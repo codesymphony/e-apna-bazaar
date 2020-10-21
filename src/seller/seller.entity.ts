@@ -3,32 +3,21 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeor
 
 @Entity('seller')
 export class SellerEntity {
+  @PrimaryGeneratedColumn('uuid') id!: string
 
-  @PrimaryGeneratedColumn('uuid') id: string
+  @CreateDateColumn() createdAt!: string
 
+  @CreateDateColumn() updatedAt!: string
 
-  @CreateDateColumn() createdAt: string
+  @Column('text') sellerCategory!: string
 
+  @Column('text') description!: string
 
-  @CreateDateColumn() updatedAt: string
-
-
-  @Column('text') sellerCategory: string
-
-
-  @Column('text') description: string
-
+  @Column('text') email!: string
   
-  @Column('text') email: string
-  
+  @Column('text') mobileNumber!: string
 
-  @Column('text') mobileNumber: string
+  @Column('boolean', { default: false }) isActive!: boolean
 
-
-  @Column('boolean', { default: false }) isActive: boolean
-
-
-  @Column('boolean', { default: false }) isVerified: boolean
-
-
+  @Column('boolean', { default: false }) isVerified!: boolean
 }

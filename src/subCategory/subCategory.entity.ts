@@ -3,10 +3,10 @@ import { CategoryEntity } from "../category/category.entity";
 
 @Entity('subCategory')
 export class SubCategoryEntity {
-  @PrimaryGeneratedColumn('uuid') id: string
+  @PrimaryGeneratedColumn('uuid') id!: string
 
-  @PrimaryColumn('text') subCategoryName: string
+  @PrimaryColumn('text') subCategoryName!: string
 
-  @ManyToOne(type => CategoryEntity, category => category.subcategories)
-  category: CategoryEntity
+  @ManyToOne(() => CategoryEntity, category => category.subcategories)
+  category!: CategoryEntity
 }

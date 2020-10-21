@@ -23,7 +23,7 @@ type UserDTO {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  email: String!
+  emai: String!
   firstName: String!
   password: String!
   lastName: String!

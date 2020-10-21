@@ -2,31 +2,30 @@ import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export class SellerDTO {
+  @Field()
+  readonly id!: string;
 
   @Field()
-  readonly id: string;
+  readonly createdAt!: Date;
 
   @Field()
-  readonly createdAt: Date;
+  readonly updatedAt!: Date;
 
   @Field()
-  readonly updatedAt: Date;
+  readonly sellerCategory!: string;
 
   @Field()
-  readonly sellerCategory: string;
+  readonly description!: string
 
   @Field()
-  readonly description: string
+  readonly email!: string
 
   @Field()
-  readonly email: string
+  readonly mobileNumber!: string
 
   @Field()
-  readonly mobileNumber: string
+  readonly isActive!: boolean
 
   @Field()
-  readonly isActive: boolean
-
-  @Field()
-  readonly isVerified: boolean
+  readonly isVerified!: boolean
 }

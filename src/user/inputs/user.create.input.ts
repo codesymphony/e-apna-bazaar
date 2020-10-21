@@ -2,41 +2,39 @@ import { Field, InputType } from "@nestjs/graphql";
 
 @InputType()
 export class UserInput {
+  @Field()
+  readonly email!: string;
 
   @Field()
-  readonly email: string;
+  readonly firstName!: string
 
   @Field()
-  readonly firstName: string
+  readonly password!: string
 
   @Field()
-  readonly password: string
+  readonly lastName!: string
 
   @Field()
-  readonly lastName: string
+  readonly gender!: string
+
+  @Field({ nullable: true })
+  readonly aadhaarNumber!: string
+
+  @Field({ nullable: true })
+  readonly addressLine1!: string
+
+  @Field({ nullable: true })
+  readonly addressLine2!: string
+
+  @Field({ nullable: true })
+  readonly city!: string
+
+  @Field({ nullable: true })
+  readonly state!: string
+
+  @Field({ nullable: true })
+  readonly country!: string
 
   @Field()
-  readonly gender: string
-
-  @Field({ nullable: true })
-  readonly aadhaarNumber: string
-
-  @Field({ nullable: true })
-  readonly addressLine1: string
-
-  @Field({ nullable: true })
-  readonly addressLine2: string
-
-  @Field({ nullable: true })
-  readonly city: string
-
-  @Field({ nullable: true })
-  readonly state: string
-
-  @Field({ nullable: true })
-  readonly country: string
-
-  @Field()
-  readonly mobileNumber: string
-
+  readonly mobileNumber!: string
 }

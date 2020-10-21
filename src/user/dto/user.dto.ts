@@ -2,50 +2,48 @@ import { Field, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export class UserDTO {
+  @Field()
+  readonly id!: string;
 
   @Field()
-  readonly id: string;
+  readonly createdAt!: Date;
 
   @Field()
-  readonly createdAt: Date;
+  readonly updatedAt!: Date;
 
   @Field()
-  readonly updatedAt: Date;
+  readonly emai!: string;
 
   @Field()
-  readonly email: string;
+  readonly firstName!: string
 
   @Field()
-  readonly firstName: string
+  readonly password!: string
 
   @Field()
-  readonly password: string
+  readonly lastName!: string
 
   @Field()
-  readonly lastName: string
-
-  @Field()
-  readonly gender: string
+  readonly gender!: string
 
   @Field({ nullable: true })
-  readonly aadhaarNumber: string
+  readonly aadhaarNumber!: string
 
   @Field({ nullable: true })
-  readonly addressLine1: string
+  readonly addressLine1!: string
 
   @Field({ nullable: true })
-  readonly addressLine2: string
+  readonly addressLine2!: string
 
   @Field({ nullable: true })
-  readonly city: string
+  readonly city!: string
 
   @Field({ nullable: true })
-  readonly state: string
+  readonly state!: string
 
   @Field({ nullable: true })
-  readonly country: string
+  readonly country!: string
 
   @Field()
-  readonly mobileNumber: string
-
+  readonly mobileNumber!: string
 }

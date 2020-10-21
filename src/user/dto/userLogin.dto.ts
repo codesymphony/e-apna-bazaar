@@ -3,11 +3,9 @@ import { GraphQLJSON } from 'graphql-type-json'
 
 @ObjectType()
 export class LoginDTO {
-
-  @Field(type => GraphQLJSON)
+  @Field(() => GraphQLJSON)
   readonly user: any;
 
-  @Field(type => GraphQLJSON)
+  @Field(() => GraphQLJSON)
   readonly tokens: any;
-
 }
