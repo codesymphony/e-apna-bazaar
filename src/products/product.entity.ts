@@ -1,4 +1,4 @@
-import { CategoryEntity } from 'src/category/category.entity';
+import { CategoryEntity } from '../category/category.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinColumn, JoinTable, OneToMany } from 'typeorm';
 import { SkuEntity } from './sku.entity';
 
