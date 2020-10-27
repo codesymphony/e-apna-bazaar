@@ -1,6 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { CategoryEntity } from './category.entity';
 import { CategoryResolver } from './category.resolver';
 import { CategoryService } from './category.service';
@@ -34,14 +35,16 @@ describe('CategoryService', () => {
 
   describe('getAllCategories', () => {
     it('should return an array of categories', async () => {
-      const result: any = {
-        id: 'awdawda',
-        categoryName: 'asddsdds',
+      const category: CategoryEntity = {
+        id: 'randomid',
+        categoryName: 'randomname',
       };
 
-      jest.spyOn(repo, 'find').mockResolvedValueOnce([result]);
+      jest.spyOn(repo, 'find').mockResolvedValueOnce([category]);
 
-      expect(await service.getAllCategories()).toEqual([result]);
+      const result = await service.getAllCategories();
+
+      expect(result).toEqual([category]);
     });
   });
 });
