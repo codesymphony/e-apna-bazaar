@@ -1,6 +1,6 @@
-import { CreateDateColumn, Entity, ManyToOne, Column, PrimaryGeneratedColumn, Index, JoinColumn } from "typeorm";
+import { CreateDateColumn, Entity, ManyToOne, Column, PrimaryGeneratedColumn, Index, JoinColumn } from 'typeorm';
 
-import { CategoryEntity } from "../category/category.entity";
+import { CategoryEntity } from '../category/category.entity';
 
 @Entity('sub_categories')
 @Index('sub_catergory_category', ['subCategoryName', 'categoryId'], { unique: true })

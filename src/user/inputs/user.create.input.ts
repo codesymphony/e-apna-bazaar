@@ -1,6 +1,6 @@
-import { Field, InputType, registerEnumType } from "@nestjs/graphql";
+import { Field, InputType, registerEnumType } from '@nestjs/graphql';
 
-import { UserGenderEnum } from '../../types';
+import { UserGenderEnum } from '@typings/index';
 
 registerEnumType(UserGenderEnum, {
   name: 'UserGender',

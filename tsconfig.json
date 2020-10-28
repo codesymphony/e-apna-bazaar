@@ -16,5 +16,9 @@
     "alwaysStrict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "@typings/*": ["src/typings/*"],
+    }
   }
 }

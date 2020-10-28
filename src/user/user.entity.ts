@@ -1,7 +1,7 @@
 
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, VersionColumn } from 'typeorm';
 
-import { UserGenderEnum } from '../types';
+import { UserGenderEnum } from '@typings/index';
 
 @Entity('user')
 export class UserEntity {
