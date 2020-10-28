@@ -29,6 +29,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    "no-console": "error",
     'semi': ['error', 'always'],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
@@ -46,8 +47,6 @@ module.exports = {
       "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
       "newlines-between": "always"
     }],
-    // "no-duplicate-imports": "off",
-    // "@typescript-eslint/no-duplicate-imports": ["error"],
     "no-dupe-class-members": "off",
     "@typescript-eslint/no-dupe-class-members": ["error"],
     "@typescript-eslint/naming-convention": [
