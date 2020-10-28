@@ -1,14 +1,16 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { ISubCategoryInput } from "./interfaces/subCategory.interface";
-import { SubCategoryEntity } from "./subCategory.entity";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+import { ISubCategoryInput } from './interfaces/subCategory.interface';
+import { SubCategoryEntity } from './subCategory.entity';
 
 @Injectable()
 export class SubCategoryService {
+  subCatRepository: any;
   constructor(
     @InjectRepository(SubCategoryEntity)
-    private readonly subCatRepository: Repository<SubCategoryEntity>
+    private readonly _subCatRepository: Repository<SubCategoryEntity>
   ) { }
 
   async getAllSubCategoryApi() {
@@ -61,7 +63,7 @@ export class SubCategoryService {
 
       await this.subCatRepository.remove(findExisted);
 
-      return "sub category removed";
+      return 'sub category removed';
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

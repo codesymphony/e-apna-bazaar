@@ -1,10 +1,10 @@
-import { CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { CreateDateColumn, Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('categories')
 export class CategoryEntity {
   @PrimaryGeneratedColumn('uuid') id!: string
 
-  @PrimaryColumn('varchar') categoryName!: string
+  @Column('varchar', { unique: true }) categoryName!: string
 
   @CreateDateColumn() createdAt!: string
 

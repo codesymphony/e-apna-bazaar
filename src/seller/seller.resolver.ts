@@ -1,19 +1,20 @@
-import { Args, Resolver, Query, Mutation } from "@nestjs/graphql";
-import { SellerDTO } from "./dto/seller.dto";
-import { SellerInput } from "./inputs/seller.input";
-import { SellerUpdate } from "./inputs/seller.update";
-import { SellerService } from "./seller.service";
+import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
+
+import { SellerDTO } from './dto/seller.dto';
+import { SellerInput } from './inputs/seller.input';
+import { SellerUpdate } from './inputs/seller.update';
+import { SellerService } from './seller.service';
 
 @Resolver()
 export class SellerResolver {
   constructor (
-    private sellerService: SellerService
+    private _sellerService: SellerService
   ) {  }
 
   @Query(() => [SellerDTO])
   async getAllSellers() {
 
-    const result = this.sellerService.getAllSellersApi();
+    const result = this._sellerService.getAllSellersApi();
 
     return result;
   }
@@ -22,7 +23,7 @@ export class SellerResolver {
   async createSeller (
     @Args('input') input: SellerInput
   ) {
-    const result = await this.sellerService.createSellerApi(input);
+    const result = await this._sellerService.createSellerApi(input);
 
     return result;
   }
@@ -31,7 +32,7 @@ export class SellerResolver {
   async getSellerById (
     @Args('id') id: string
   ) {
-    const result = await this.sellerService.getSellerByIdApi(id);
+    const result = await this._sellerService.getSellerByIdApi(id);
 
     return result;
   }
@@ -41,7 +42,7 @@ export class SellerResolver {
     @Args('input') input: SellerUpdate
   )
    {
-     const result = await this.sellerService.updateSellerApi(input);
+     const result = await this._sellerService.updateSellerApi(input);
 
      return result;
    }

@@ -1,5 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ProductEntity } from "./product.entity";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('sku')
 export class SkuEntity {

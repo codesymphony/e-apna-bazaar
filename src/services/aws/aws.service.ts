@@ -1,15 +1,15 @@
-import { Injectable } from "@nestjs/common";
-import AmazonCognitoIdentity, { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
-import config from '../../config/config.json';
+import { Injectable } from '@nestjs/common';
+import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 
 @Injectable()
 export class AwsService {
   poolData;
   userPool;
+
   constructor() {
     this.poolData = {
-      UserPoolId: "us-east-2_YjqF6maQn",
-      ClientId: "26nmefc6aq827s3ud05fgd6b03",
+      UserPoolId: 'us-east-2_YjqF6maQn',
+      ClientId: '26nmefc6aq827s3ud05fgd6b03',
     };
     console.log(this.poolData);
     this.userPool = new CognitoUserPool(this.poolData);
