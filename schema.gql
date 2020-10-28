@@ -59,6 +59,9 @@ type CategoryDTO {
 type SubCategoryDTO {
   id: String!
   subCategoryName: String!
+  categoryId: String!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Query {
@@ -74,10 +77,10 @@ type Mutation {
   createSeller(input: SellerInput!): SellerDTO!
   updateSeller(input: SellerUpdate!): SellerDTO!
   signUpUser(input: CreateUserInput!): UserDTO!
-  createCategory(input: CategoryInput!): CategoryDTO!
-  deleteCategory(categoryId: String!): CategoryDTO!
-  createSubCategory(input: SubCategoryInput!): SubCategoryDTO!
-  deleteSubCategory(id: String!): String!
+  createCategory(input: CategoryCreateInput!): CategoryDTO!
+  deleteCategory(input: CategoryDeleteInput!): CategoryDTO!
+  createSubCategory(input: SubCategoryCreateInput!): SubCategoryDTO!
+  deleteSubCategory(input: SubCategoryDeleteInput!): SubCategoryDTO!
 }
 
 input SellerInput {
@@ -113,10 +116,19 @@ enum UserGender {
   OTHER
 }
 
-input CategoryInput {
+input CategoryCreateInput {
   categoryName: String!
 }
 
-input SubCategoryInput {
+input CategoryDeleteInput {
+  categoryId: String!
+}
+
+input SubCategoryCreateInput {
   subCategoryName: String!
+  categoryId: String!
+}
+
+input SubCategoryDeleteInput {
+  subCategoryId: String!
 }

@@ -16,3 +16,8 @@ export const CATEGORY_ERRORS = {
   NOT_FOUND: NOT_FOUND('Category'),
   ALREADY_EXISTS: ALREADY_EXISTS('Category')
 } as const;
+
+export const SUB_CATEGORY_ERRORS = {
+  NOT_FOUND: NOT_FOUND('Subcategory'),
+  ALREADY_EXISTS_FOR_CATEGORY: ALREADY_EXISTS('Subcategory for this category')
+} as const;

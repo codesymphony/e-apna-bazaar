@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class CategoryInput {
+export class SubCategoryDeleteInput {
   @Field()
-  readonly categoryName!: string;
+  readonly subCategoryId!: string;
 }

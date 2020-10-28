@@ -1,13 +1,12 @@
-
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { makeError } from '@/utils';
 import { CATEGORY_ERRORS } from '@/errors';
+import { ICategoryCreateInput, ICategoryDeleteInput } from '@/typings';
 
 import { CategoryEntity } from './category.entity';
-import { ICategoryInput } from './interfaces/category.interface';
 
 @Injectable()
 export class CategoryService {
@@ -26,14 +25,14 @@ export class CategoryService {
     }
   }
 
-  async saveCategory(input: ICategoryInput) {
+  async createCategory(input: ICategoryCreateInput) {
     const { categoryName } = input;
 
     try {
       const existing = await this._categoryRespository.findOne({ where: { categoryName } });
 
       if (existing) {
-        throw new HttpException(CATEGORY_ERRORS.NOT_FOUND, HttpStatus.BAD_REQUEST);
+        throw new HttpException(CATEGORY_ERRORS.ALREADY_EXISTS, HttpStatus.BAD_REQUEST);
       }
 
       const result = this._categoryRespository.create({ categoryName });
@@ -46,17 +45,19 @@ export class CategoryService {
     }
   }
 
-  async deleteCategory(categoryId: string) {
+  async deleteCategory(input: ICategoryDeleteInput) {
     try {
-      const existing = await this._categoryRespository.findOne({ where: { id: categoryId } });
+      const existing = await this._categoryRespository.findOne({ where: { id: input.categoryId } });
 
       if (!existing) {
         throw new HttpException(CATEGORY_ERRORS.NOT_FOUND, HttpStatus.BAD_REQUEST);
       }
 
+      const categoryCopy = { ...existing };
+
       await this._categoryRespository.remove(existing);
 
-      return existing;
+      return categoryCopy;
     } catch (error) {
       throw makeError(error);
     }

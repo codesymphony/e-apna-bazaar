@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, VersionColumn } from 'typeorm';
+import {
+  Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, VersionColumn
+} from 'typeorm';
 
-import { CategoryEntity } from '../category/category.entity';
-import { SubCategoryEntity } from '../subCategory/subCategory.entity';
-// import { SkuEntity } from './sku.entity';
+import { CategoryEntity } from '@/category/category.entity';
+import { SubCategoryEntity } from '@/sub-category/sub-category.entity';
 
 @Entity('products')
 export class ProductEntity {
