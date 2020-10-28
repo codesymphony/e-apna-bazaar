@@ -7,4 +7,10 @@ export class CategoryDTO {
 
   @Field()
   readonly categoryName!: string;
+
+  @Field()
+  readonly createdAt!: string;
+
+  @Field()
+  readonly updatedAt!: string;
 }

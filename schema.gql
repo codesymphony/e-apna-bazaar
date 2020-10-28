@@ -51,6 +51,8 @@ scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/fi
 type CategoryDTO {
   id: String!
   categoryName: String!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type SubCategoryDTO {
