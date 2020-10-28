@@ -1,4 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+
 import { SubCategoryService } from './subCategory.service';
 import { SubCategoryDTO } from './dto/subCategory.dto';
 import { SubCategoryInput } from './inputs/subCategory.create.input';

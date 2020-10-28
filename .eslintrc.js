@@ -10,11 +10,19 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'prettier/@typescript-eslint',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
   ],
   root: true,
   env: {
     node: true,
     jest: true,
+  },
+  settings: {
+    "import/resolver": {
+      typescript: {} // this loads <rootdir>/tsconfig.json to eslint
+    },
   },
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
@@ -30,6 +38,14 @@ module.exports = {
     "@typescript-eslint/quotes": ["error", "single"],
     '@typescript-eslint/class-literal-property-style': ["error", "fields"],
     '@typescript-eslint/await-thenable': ["error"],
+    'import/named': 2,
+    'import/namespace': 2,
+    'import/default': 2,
+    'import/export': 2,
+    "import/order": ["error", {
+      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+      "newlines-between": "always"
+    }],
     // "no-duplicate-imports": "off",
     // "@typescript-eslint/no-duplicate-imports": ["error"],
     "no-dupe-class-members": "off",

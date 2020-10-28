@@ -1,4 +1,5 @@
 import { Args, Resolver, Query, Mutation } from '@nestjs/graphql';
+
 import { SellerDTO } from './dto/seller.dto';
 import { SellerInput } from './inputs/seller.input';
 import { SellerUpdate } from './inputs/seller.update';
