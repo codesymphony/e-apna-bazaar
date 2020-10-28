@@ -64,6 +64,7 @@ type Query {
   getAllSellers: [SellerDTO!]!
   getSellerById(id: String!): SellerDTO!
   getAllUsers: [UserDTO!]!
+  signInUser(password: String!, email: String!): LoginDTO!
   getAllCategories: [CategoryDTO!]!
   getAllSubCategories: [SubCategoryDTO!]!
 }
@@ -71,8 +72,7 @@ type Query {
 type Mutation {
   createSeller(input: SellerInput!): SellerDTO!
   updateSeller(input: SellerUpdate!): SellerDTO!
-  signUp(input: UserInput!): UserDTO!
-  signin(password: String!, email: String!): LoginDTO!
+  signUpUser(input: CreateUserInput!): UserDTO!
   createCategory(input: CategoryInput!): CategoryDTO!
   deleteCategory(categoryId: String!): CategoryDTO!
   createSubCategory(input: SubCategoryInput!): SubCategoryDTO!
@@ -91,7 +91,7 @@ input SellerUpdate {
   info: SellerInput!
 }
 
-input UserInput {
+input CreateUserInput {
   email: String!
   firstName: String!
   password: String!

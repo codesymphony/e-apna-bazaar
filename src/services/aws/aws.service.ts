@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
+import {
+  CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser
+} from 'amazon-cognito-identity-js';
 
 @Injectable()
 export class AwsService {
@@ -11,7 +13,7 @@ export class AwsService {
       UserPoolId: 'us-east-2_YjqF6maQn',
       ClientId: '26nmefc6aq827s3ud05fgd6b03',
     };
-    console.log(this.poolData);
+
     this.userPool = new CognitoUserPool(this.poolData);
   }
 
@@ -23,24 +25,19 @@ export class AwsService {
     };
 
     const emailAttribute = new CognitoUserAttribute(emailData);
-    console.log(data);
+
     return new Promise((resolve, reject) => {
       this.userPool.signUp(email, password, [emailAttribute], null, (err, data) => {
         if (err) {
-          console.log('errr#####', err);
-          reject(err);
+          return reject(err);
         }
-        else {
-          console.log(data);
-          resolve(data);
-        }
+
+        resolve(data);
       });
-
     });
-
   }
 
-  async singIn(info) {
+  async signIn(info) {
     const loginDetails = {
       Username: info.email,
       Password: info.password
@@ -58,7 +55,6 @@ export class AwsService {
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: data => {
-          console.log('inside promise', data);
           const tokens = {
             idToken: data.getIdToken().getJwtToken(),
             refreshToken: data.getRefreshToken().getToken(),

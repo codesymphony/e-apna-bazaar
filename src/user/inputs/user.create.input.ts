@@ -7,7 +7,7 @@ registerEnumType(UserGenderEnum, {
 });
 
 @InputType()
-export class UserInput {
+export class CreateUserInput {
   @Field()
   readonly email!: string;
 
