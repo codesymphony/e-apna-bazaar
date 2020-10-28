@@ -1,12 +1,17 @@
-import { Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { CreateDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+
 import { CategoryEntity } from "../category/category.entity";
 
-@Entity('subCategory')
+@Entity('sub_categories')
 export class SubCategoryEntity {
   @PrimaryGeneratedColumn('uuid') id!: string
 
-  @PrimaryColumn('text') subCategoryName!: string
+  @PrimaryColumn('varchar') subCategoryName!: string
 
-  @ManyToOne(() => CategoryEntity, category => category.subcategories)
+  @CreateDateColumn() createdAt!: string
+
+  @CreateDateColumn() updatedAt!: string
+
+  @ManyToOne(() => CategoryEntity)
   category!: CategoryEntity
 }

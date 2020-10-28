@@ -6,6 +6,8 @@
   "password": "killer@1",
   "database": "ebazaar",
   "synchronize": true,
-  "logging": true,
-  "entities": ["dist/**/*.entity{.ts,.js}"]
+  "logging": false,
+  "entities": [
+    "dist/**/*.entity{.ts,.js}"
+  ]
 }

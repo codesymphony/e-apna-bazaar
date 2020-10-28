@@ -1,16 +1,12 @@
-import { ProductEntity } from "src/products/product.entity";
-import { Entity, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { SubCategoryEntity } from "../subCategory/subCategory.entity";
+import { CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('category')
+@Entity('categories')
 export class CategoryEntity {
   @PrimaryGeneratedColumn('uuid') id!: string
 
-  @PrimaryColumn('text') categoryName!: string
+  @PrimaryColumn('varchar') categoryName!: string
 
-  @ManyToOne(() => ProductEntity, product => product.categories)
-  product!: ProductEntity
+  @CreateDateColumn() createdAt!: string
 
-  @OneToMany(() => SubCategoryEntity, subcategory => subcategory.category)
-  subcategories!: SubCategoryEntity[]
+  @CreateDateColumn() updatedAt!: string
 }

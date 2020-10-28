@@ -1,19 +1,26 @@
-import { CategoryEntity } from 'src/category/category.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinColumn, JoinTable, OneToMany } from 'typeorm';
-import { SkuEntity } from './sku.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, VersionColumn } from 'typeorm';
 
-@Entity('product')
+import { CategoryEntity } from '../category/category.entity';
+import { SubCategoryEntity } from '../subCategory/subCategory.entity';
+// import { SkuEntity } from './sku.entity';
+
+@Entity('products')
 export class ProductEntity {
   @PrimaryGeneratedColumn('uuid') id!: string
 
-  @Column('text') productName!: string
+  @Column('varchar') productName!: string
 
-  @Column('text') productDesc!: string
+  @Column('varchar', { length: 500 }) productDesc!: string
 
-  @OneToMany(() => CategoryEntity, category => category.product)
-  categories!: CategoryEntity[]
+  @CreateDateColumn() createdAt!: string
 
-  @OneToMany(() => SkuEntity, sku => sku.product)
-  skus!: SkuEntity[]
+  @CreateDateColumn() updatedAt!: string
 
+  @VersionColumn() version!: number;
+
+  @ManyToOne(() => CategoryEntity)
+  category!: CategoryEntity
+
+  @ManyToOne(() => SubCategoryEntity)
+  subCategory!: SubCategoryEntity
 }

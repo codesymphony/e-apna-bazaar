@@ -26,17 +26,17 @@ export class UserEntity {
 
   @Column('varchar') mobileNumber!: string
 
-  @Column('varchar', { nullable: true }) aadhaarNumber!: string
+  @Column('varchar', { nullable: true }) aadhaarNumber?: string
 
-  @Column('varchar', { nullable: true, length: 400 }) addressLine1!: string
+  @Column('varchar', { nullable: true, length: 400 }) addressLine1?: string
 
-  @Column('varchar', { nullable: true, length: 400 }) addressLine2!: string
+  @Column('varchar', { nullable: true, length: 400 }) addressLine2?: string
 
-  @Column('varchar', { nullable: true }) city!: string
+  @Column('varchar', { nullable: true }) city?: string
 
-  @Column('varchar', { nullable: true }) state!: string
+  @Column('varchar', { nullable: true }) state?: string
 
-  @Column('varchar', { nullable: true }) country!: string
+  @Column('varchar', { nullable: true }) country?: string
 
   @Column('boolean', { default: false }) isActive!: boolean
 

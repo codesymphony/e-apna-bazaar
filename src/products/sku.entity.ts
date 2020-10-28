@@ -8,7 +8,4 @@ export class SkuEntity {
   @Column('text') sku!: string
 
   @Column('float') price!: number
-
-  @ManyToOne(() => ProductEntity, product => product.skus)
-  product!: ProductEntity
 }
