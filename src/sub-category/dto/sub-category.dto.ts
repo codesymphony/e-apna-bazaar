@@ -7,4 +7,13 @@ export class SubCategoryDTO {
 
   @Field()
   readonly subCategoryName!: string;
+
+  @Field()
+  readonly categoryId!: string;
+
+  @Field()
+  readonly createdAt!: string;
+
+  @Field()
+  readonly updatedAt!: string;
 }

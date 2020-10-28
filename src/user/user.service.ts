@@ -1,9 +1,13 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import omit from 'lodash/omit';
 
 import { AwsService } from '@/services/aws/aws.service';
+import { makeError } from '@/utils';
+import { USER_ERRORS } from '@/errors';
 
+import { CreateUserInput } from './inputs/user.create.input';
 import { UserEntity } from './user.entity';
 
 @Injectable()
@@ -20,49 +24,51 @@ export class UserService {
 
       return result;
     } catch (error) {
-      console.log(error);
+      throw makeError(error);
     }
   }
 
-  async signUpUser(data) {
-    const { email, password } = data;
+  async signUpUser(input: CreateUserInput) {
+    const { email, password } = input;
+
     try {
 
-      const findExisted = await this._userRepository.findOne({ where: { email: email } });
+      const existing = await this._userRepository.findOne({ where: { email: email } });
 
-      if (findExisted) {
-        throw new HttpException('User with email already exists', HttpStatus.BAD_REQUEST);
+      if (existing) {
+        throw new HttpException(USER_ERRORS.ALREADY_EXISTS_WITH_EMAIL, HttpStatus.BAD_REQUEST);
       }
+
       else {
-        const resultFromAws = await this._awsService.addUserToPool({ email, password });
-        console.log('service', resultFromAws);
-        const userData = Object.assign({}, data);
-        delete userData.password;
-        const user = this._userRepository.create(data);
+        await this._awsService.addUserToPool({ email, password });
+
+        const user = this._userRepository.create(omit(input, 'password'));
 
         await this._userRepository.save(user);
 
         return user;
       }
-    } catch (err) {
-      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    } catch (error) {
+      throw makeError(error);
     }
   }
 
-  async signIn(email, password) {
+  async signInUser(email, password) {
     try {
+      const existing = await this._userRepository.findOne({ where: { 'email': email } });
 
-      const findExisted = await this._userRepository.findOne({ where: { 'email': email } });
+      if (!existing) {
+        throw new HttpException(USER_ERRORS.NOT_FOUND, HttpStatus.NOT_FOUND);
+      }
 
-      const resultFromAws = await this._awsService.singIn({ email, password });
+      const resultFromAws = await this._awsService.signIn({ email, password });
 
       return {
-        user: findExisted,
+        user: existing,
         tokens: resultFromAws
       };
-    }
-    catch (err) {
-      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    } catch (error) {
+      throw makeError(error);
     }
   }
 }

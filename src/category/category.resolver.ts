@@ -2,7 +2,8 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { CategoryService } from './category.service';
 import { CategoryDTO } from './dto/category.dto';
-import { CategoryInput } from './inputs/category.input';
+import { CategoryCreateInput } from './inputs/category.create.input';
+import { CategoryDeleteInput } from './inputs/category.delete.input';
 
 @Resolver()
 export class CategoryResolver {
@@ -18,15 +19,15 @@ export class CategoryResolver {
   }
 
   @Mutation(() => CategoryDTO)
-  async createCategory(@Args('input') input: CategoryInput) {
-    const result = await this._categoryService.saveCategory(input);
+  async createCategory(@Args('input') input: CategoryCreateInput) {
+    const result = await this._categoryService.createCategory(input);
 
     return result;
   }
 
-  @Mutation(() => String)
-  async deleteCategory(@Args('categoryId') categoryId: string) {
-    const result = await this._categoryService.deleteCategory(categoryId);
+  @Mutation(() => CategoryDTO)
+  async deleteCategory(@Args('input') input: CategoryDeleteInput) {
+    const result = await this._categoryService.deleteCategory(input);
 
     return result;
   }

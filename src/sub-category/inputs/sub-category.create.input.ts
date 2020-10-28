@@ -1,7 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class SubCategoryInput {
+export class SubCategoryCreateInput {
   @Field()
   readonly subCategoryName!: string;
+
+  @Field()
+  readonly categoryId!: string;
 }
