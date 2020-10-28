@@ -64,6 +64,17 @@ type SubCategoryDTO {
   updatedAt: String!
 }
 
+type ProductDTO {
+  id: String!
+  productName: String!
+  productDesc: String!
+  categoryId: String!
+  subCategoryId: String!
+  createdAt: String!
+  updatedAt: String!
+  version: Int!
+}
+
 type Query {
   getAllSellers: [SellerDTO!]!
   getSellerById(id: String!): SellerDTO!
@@ -71,6 +82,12 @@ type Query {
   signInUser(password: String!, email: String!): AuthInfoDTO!
   getAllCategories: [CategoryDTO!]!
   getAllSubCategories: [SubCategoryDTO!]!
+  getAllProducts: [ProductDTO!]!
+  getProduct(input: ProductGetInput!): ProductDTO!
+}
+
+input ProductGetInput {
+  productId: String!
 }
 
 type Mutation {
@@ -81,6 +98,7 @@ type Mutation {
   deleteCategory(input: CategoryDeleteInput!): CategoryDTO!
   createSubCategory(input: SubCategoryCreateInput!): SubCategoryDTO!
   deleteSubCategory(input: SubCategoryDeleteInput!): SubCategoryDTO!
+  createProduct(input: ProductCreateInput!): ProductDTO!
 }
 
 input SellerInput {
@@ -130,5 +148,12 @@ input SubCategoryCreateInput {
 }
 
 input SubCategoryDeleteInput {
+  subCategoryId: String!
+}
+
+input ProductCreateInput {
+  productName: String!
+  productDesc: String!
+  categoryId: String!
   subCategoryId: String!
 }

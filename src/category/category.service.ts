@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { makeError } from '@/utils';
 import { CATEGORY_ERRORS } from '@/errors';
-import { ICategoryCreateInput, ICategoryDeleteInput } from '@/typings';
+import { ICategoryCreateInput, ICategoryDeleteInput, ICategoryGetInput } from '@/typings';
 
 import { CategoryEntity } from './category.entity';
 
@@ -18,6 +18,20 @@ export class CategoryService {
   async getAllCategories() {
     try {
       const result = await this._categoryRespository.find({});
+
+      return result;
+    } catch (error) {
+      throw makeError(error);
+    }
+  }
+
+  async getCategory(input: ICategoryGetInput) {
+    try {
+      const result = await this._categoryRespository.findOne({ where: { id: input.categoryId } });
+
+      if (!result) {
+        throw new HttpException(CATEGORY_ERRORS.NOT_FOUND, HttpStatus.NOT_FOUND);
+      }
 
       return result;
     } catch (error) {

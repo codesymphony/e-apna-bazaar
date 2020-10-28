@@ -19,6 +19,10 @@ export class ProductEntity {
 
   @VersionColumn() version!: number;
 
+  @Column('uuid') categoryId!: string;
+
+  @Column('uuid') subCategoryId!: string;
+
   @ManyToOne(() => CategoryEntity)
   category!: CategoryEntity
 

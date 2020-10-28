@@ -19,6 +19,10 @@ export interface ICategoryCreateInput {
   categoryName: string;
 }
 
+export interface ICategoryGetInput {
+  categoryId: string;
+}
+
 export interface ICategoryDeleteInput {
   categoryId: string;
 }
@@ -34,4 +38,15 @@ export interface ISubCategoryGetInput {
 
 export interface ISubCategoryDeleteInput {
   subCategoryId: string;
+}
+
+export interface IProductCreateInput {
+  productName: string;
+  productDesc: string;
+  categoryId: string;
+  subCategoryId: string;
+}
+
+export interface IProductGetInput {
+  productId: string;
 }
