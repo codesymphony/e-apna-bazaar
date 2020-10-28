@@ -57,7 +57,7 @@ export class UserService {
     try {
       const existing = await this._userRepository.findOne({ where: { 'email': email } });
 
-      if (existing) {
+      if (!existing) {
         throw new HttpException(USER_ERRORS.NOT_FOUND, HttpStatus.NOT_FOUND);
       }
 

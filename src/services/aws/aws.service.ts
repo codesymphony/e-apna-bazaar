@@ -3,10 +3,12 @@ import {
   CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser
 } from 'amazon-cognito-identity-js';
 
+import { ICognitoAuthInput, ICognitoAuthTokens } from '@typings/index';
+
 @Injectable()
 export class AwsService {
   poolData;
-  userPool;
+  userPool: CognitoUserPool;
 
   constructor() {
     this.poolData = {
@@ -17,8 +19,9 @@ export class AwsService {
     this.userPool = new CognitoUserPool(this.poolData);
   }
 
-  addUserToPool(data) {
+  addUserToPool(data: ICognitoAuthInput): Promise<string | undefined> {
     const { email, password } = data;
+
     const emailData = {
       Name: 'email',
       Value: email
@@ -27,26 +30,26 @@ export class AwsService {
     const emailAttribute = new CognitoUserAttribute(emailData);
 
     return new Promise((resolve, reject) => {
-      this.userPool.signUp(email, password, [emailAttribute], null, (err, data) => {
-        if (err) {
-          return reject(err);
+      this.userPool.signUp(email, password, [emailAttribute], [], (error, data) => {
+        if (error) {
+          return reject(error);
         }
 
-        resolve(data);
+        return resolve(data?.codeDeliveryDetails.Destination);
       });
     });
   }
 
-  async signIn(info) {
+  async signIn(data: ICognitoAuthInput): Promise<ICognitoAuthTokens> {
     const loginDetails = {
-      Username: info.email,
-      Password: info.password
+      Username: data.email,
+      Password: data.password
     };
 
     const authenticationDetails = new AuthenticationDetails(loginDetails);
 
     const userDetails = {
-      Username: info.email,
+      Username: data.email,
       Pool: this.userPool
     };
 

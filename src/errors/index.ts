@@ -7,8 +7,8 @@ export const COMMON_ERRORS = {
 } as const;
 
 export const USER_ERRORS = {
-  NOT_FOUND: NOT_FOUND('Category'),
-  ALREADY_EXISTS: ALREADY_EXISTS('Category'),
+  NOT_FOUND: NOT_FOUND('User'),
+  ALREADY_EXISTS: ALREADY_EXISTS('User'),
   ALREADY_EXISTS_WITH_EMAIL: ALREADY_EXISTS('User with email'),
 } as const;
 
