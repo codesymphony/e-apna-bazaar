@@ -24,7 +24,7 @@ export class CategoryResolver {
     return result;
   }
 
-  @Mutation(() => String)
+  @Mutation(() => CategoryDTO)
   async deleteCategory(@Args('categoryId') categoryId: string) {
     const result = await this._categoryService.deleteCategory(categoryId);
 

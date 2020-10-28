@@ -56,7 +56,7 @@ export class CategoryService {
 
       await this._categoryRespository.remove(existing);
 
-      return 'Category successfully removed';
+      return existing;
     } catch (error) {
       throw makeError(error);
     }

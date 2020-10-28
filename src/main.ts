@@ -24,18 +24,27 @@ const winstonLogger = WinstonModule.createLogger({
     new winston.transports.File({
       filename: 'info.log',
       level: 'info',
-      format: winston.format.json()
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json(),
+      )
     }),
     new winston.transports.File({
       filename: 'errors.log',
       level: 'error',
-      format: winston.format.json()
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json(),
+      )
     }),
   ],
   exceptionHandlers: [
     new winston.transports.File({
       filename: 'exceptions.log',
-      format: winston.format.json()
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json(),
+      )
     })
   ]
 });
@@ -54,7 +63,7 @@ async function bootstrap() {
   });
 
   app.use(morgan(
-    ':method :url :status :response-time ms - :res[content-length] ":referrer" ":user-agent"',
+    'timestamp{:date[iso]} :method :url :status :response-time ms - :res[content-length] ":referrer"',
     {
       stream: myStream,
     }
