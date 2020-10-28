@@ -3,10 +3,10 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "killer@1",
-  "database": "ebazaar",
+  "password": "postgres",
+  "database": "e-apna-bazaar",
   "synchronize": true,
-  "logging": false,
+  "logging": true,
   "entities": [
     "dist/**/*.entity{.ts,.js}"
   ]
