@@ -1,8 +1,14 @@
-import { CreateDateColumn, Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { CreateDateColumn, Entity, Column, PrimaryColumn, BeforeInsert } from 'typeorm';
+import { nanoid } from 'nanoid';
 
 @Entity('categories')
 export class CategoryEntity {
-  @PrimaryGeneratedColumn('uuid') id!: string
+  @PrimaryColumn('varchar', { length: 21 }) id!: string
+
+  @BeforeInsert()
+  setId() {
+    this.id = nanoid();
+  }
 
   @Column('varchar', { unique: true }) categoryName!: string
 

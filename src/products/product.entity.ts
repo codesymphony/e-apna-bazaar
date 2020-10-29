@@ -1,13 +1,19 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, VersionColumn
+  Entity, PrimaryColumn, Column, ManyToOne, CreateDateColumn, VersionColumn, BeforeInsert
 } from 'typeorm';
+import { nanoid } from 'nanoid';
 
 import { CategoryEntity } from '@/category/category.entity';
 import { SubCategoryEntity } from '@/sub-category/sub-category.entity';
 
 @Entity('products')
 export class ProductEntity {
-  @PrimaryGeneratedColumn('uuid') id!: string
+  @PrimaryColumn('varchar', { length: 21 }) id!: string
+
+  @BeforeInsert()
+  setId() {
+    this.id = nanoid();
+  }
 
   @Column('varchar') productName!: string
 
@@ -19,9 +25,9 @@ export class ProductEntity {
 
   @VersionColumn() version!: number;
 
-  @Column('uuid') categoryId!: string;
+  @Column('varchar', { length: 21 }) categoryId!: string;
 
-  @Column('uuid') subCategoryId!: string;
+  @Column('varchar', { length: 21 }) subCategoryId!: string;
 
   @ManyToOne(() => CategoryEntity)
   category!: CategoryEntity
