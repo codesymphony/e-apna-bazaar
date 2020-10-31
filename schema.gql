@@ -81,6 +81,7 @@ type Query {
   getAllUsers: [UserDTO!]!
   signInUser(password: String!, email: String!): AuthInfoDTO!
   getAllCategories: [CategoryDTO!]!
+  getSubcategories(categoryId: String!): String!
   getAllSubCategories: [SubCategoryDTO!]!
   getAllProducts: [ProductDTO!]!
   getProduct(input: ProductGetInput!): ProductDTO!

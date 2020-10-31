@@ -1,5 +1,8 @@
-import { CreateDateColumn, Entity, Column, PrimaryColumn, BeforeInsert } from 'typeorm';
+import { CreateDateColumn, Entity, Column, PrimaryColumn, BeforeInsert, OneToMany } from 'typeorm';
 import { nanoid } from 'nanoid';
+
+import { SubCategoryEntity } from '@/sub-category/sub-category.entity';
+import { ProductEntity } from '@/products/product.entity';
 
 @Entity('categories')
 export class CategoryEntity {
@@ -15,4 +18,10 @@ export class CategoryEntity {
   @CreateDateColumn() createdAt!: string
 
   @CreateDateColumn() updatedAt!: string
+
+  @OneToMany(() => SubCategoryEntity, subCategory => subCategory.category)
+  subCategories?: SubCategoryEntity[];
+
+  @OneToMany(() => ProductEntity, product => product.category)
+  products?: ProductEntity[];
 }

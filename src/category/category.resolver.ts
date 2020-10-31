@@ -18,6 +18,16 @@ export class CategoryResolver {
     return result;
   }
 
+  
+  @Query(() => String)
+  async getSubcategories(
+    @Args('categoryId') categoryId: string,
+  ) {
+    const result = await this._categoryService.getSubcategories({ categoryId });
+
+    return result;
+  }
+
   @Mutation(() => CategoryDTO)
   async createCategory(@Args('input') input: CategoryCreateInput) {
     const result = await this._categoryService.createCategory(input);

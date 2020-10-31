@@ -29,9 +29,9 @@ export class ProductEntity {
 
   @Column('varchar', { length: 21 }) subCategoryId!: string;
 
-  @ManyToOne(() => CategoryEntity)
+  @ManyToOne(() => CategoryEntity, category => category.products)
   category!: CategoryEntity
 
-  @ManyToOne(() => SubCategoryEntity)
+  @ManyToOne(() => SubCategoryEntity, subCategory => subCategory.products)
   subCategory!: SubCategoryEntity
 }

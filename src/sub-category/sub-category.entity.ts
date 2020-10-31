@@ -1,8 +1,9 @@
 import {
-  CreateDateColumn, Entity, ManyToOne, Column, PrimaryColumn, Index, JoinColumn, BeforeInsert
+  CreateDateColumn, Entity, ManyToOne, Column, PrimaryColumn, Index, JoinColumn, BeforeInsert, OneToMany,
 } from 'typeorm';
 import { nanoid } from 'nanoid';
 
+import { ProductEntity } from '@/products/product.entity';
 import { CategoryEntity } from '@/category/category.entity';
 
 @Entity('sub_categories')
@@ -23,7 +24,10 @@ export class SubCategoryEntity {
 
   @Column('varchar', { length: 21 }) categoryId!: string;
 
-  @ManyToOne(() => CategoryEntity)
+  @ManyToOne(() => CategoryEntity, category => category.subCategories)
   @JoinColumn({ name: 'categoryId' })
   category!: CategoryEntity
+
+  @OneToMany(() => ProductEntity, product => product.subCategoryId)
+  products?: ProductEntity[]
 }
