@@ -57,13 +57,10 @@ export class CategoryService {
         )
         .where('category.id = :categoryId', { categoryId: input.categoryId })
         .andWhere('subCategory.subCategoryName like :subCategoryName', { subCategoryName: 'Shoes%' })
-        // .getSql();
         .printSql()
-        .getMany();
-      
-      console.log(joined);
+        .getOne();
 
-      return 'result';
+      return joined;
     } catch (error) {
       throw makeError(error);
     }

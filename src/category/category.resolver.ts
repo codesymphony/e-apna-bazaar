@@ -18,8 +18,7 @@ export class CategoryResolver {
     return result;
   }
 
-  
-  @Query(() => String)
+  @Query(() => CategoryDTO)
   async getSubcategories(
     @Args('categoryId') categoryId: string,
   ) {

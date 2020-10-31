@@ -49,21 +49,6 @@ type AuthInfoDTO {
   tokens: TokensDTO!
 }
 
-type CategoryDTO {
-  id: String!
-  categoryName: String!
-  createdAt: String!
-  updatedAt: String!
-}
-
-type SubCategoryDTO {
-  id: String!
-  subCategoryName: String!
-  categoryId: String!
-  createdAt: String!
-  updatedAt: String!
-}
-
 type ProductDTO {
   id: String!
   productName: String!
@@ -75,13 +60,30 @@ type ProductDTO {
   version: Int!
 }
 
+type SubCategoryDTO {
+  id: String!
+  subCategoryName: String!
+  categoryId: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type CategoryDTO {
+  id: String!
+  categoryName: String!
+  createdAt: String!
+  updatedAt: String!
+  products: [ProductDTO!]
+  subCategories: [SubCategoryDTO!]
+}
+
 type Query {
   getAllSellers: [SellerDTO!]!
   getSellerById(id: String!): SellerDTO!
   getAllUsers: [UserDTO!]!
   signInUser(password: String!, email: String!): AuthInfoDTO!
   getAllCategories: [CategoryDTO!]!
-  getSubcategories(categoryId: String!): String!
+  getSubcategories(categoryId: String!): CategoryDTO!
   getAllSubCategories: [SubCategoryDTO!]!
   getAllProducts: [ProductDTO!]!
   getProduct(input: ProductGetInput!): ProductDTO!
