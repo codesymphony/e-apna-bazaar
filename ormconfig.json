@@ -4,7 +4,7 @@
   "port": 5432,
   "username": "postgres",
   "password": "killer@1",
-  "database": "ebazaar1",
+  "database": "ecomone",
   "synchronize": true,
   "logging": false,
   "entities": [

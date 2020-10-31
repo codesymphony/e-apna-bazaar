@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import { CategoryEntity } from '@/category/category.entity';
 
 @Entity('sub_categories')
-@Index('sub_catergory_category', ['subCategoryName', 'categoryId'], { unique: true })
+@Index('sub_category_category', ['subCategoryName', 'categoryId'], { unique: true })
 export class SubCategoryEntity {
   @PrimaryColumn('varchar', { length: 21 }) id!: string
 
