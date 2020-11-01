@@ -56,12 +56,6 @@ export class ProductsService {
       await this._productRespository.save(result);
 
       return result;
-
-      return {
-        ...result,
-        categoryId: category.id,
-        subCategoryId: subCategory.id,
-      };
     } catch (error) {
       throw makeError(error);
     }

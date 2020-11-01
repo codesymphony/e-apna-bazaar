@@ -39,6 +39,33 @@ export class CategoryService {
     }
   }
 
+  async getSubcategories(input: ICategoryGetInput) {
+    try {
+      const result = await this._categoryRespository.findOne({ where: { id: input.categoryId } });
+
+      if (!result) {
+        throw new HttpException(CATEGORY_ERRORS.NOT_FOUND, HttpStatus.NOT_FOUND);
+      }
+
+      const joined = await this._categoryRespository
+        .createQueryBuilder('category')
+        .leftJoinAndSelect('category.subCategories', 'subCategory')
+        .leftJoinAndSelect(
+          'category.products',
+          'product',
+          'product.categoryId = category.id AND product.subCategoryId = subCategory.id',
+        )
+        .where('category.id = :categoryId', { categoryId: input.categoryId })
+        .andWhere('subCategory.subCategoryName like :subCategoryName', { subCategoryName: 'Shoes%' })
+        .printSql()
+        .getOne();
+
+      return joined;
+    } catch (error) {
+      throw makeError(error);
+    }
+  }
+
   async createCategory(input: ICategoryCreateInput) {
     const { categoryName } = input;
 
