@@ -33,9 +33,6 @@ export class ProductsService {
     try {
       const product = await this._productRespository.findOne({ where: { id: input.productId } });
 
-      const pro = await this._productRespository.findOne({ where: { id: input.productId }, relations: ['category', 'subCategory'] });
-      // const pro = await this._productRespository.createQueryBuilder('category').leftJoinAndSelect('category', 'product.category').getOne();
-      // console.log('proo', pro);
       return product;
     } catch (error) {
       throw makeError(error);
@@ -59,12 +56,6 @@ export class ProductsService {
       await this._productRespository.save(result);
 
       return result;
-
-      return {
-        ...result,
-        categoryId: category.id,
-        subCategoryId: subCategory.id,
-      };
     } catch (error) {
       throw makeError(error);
     }
