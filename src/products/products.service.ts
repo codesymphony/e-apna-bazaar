@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -33,6 +33,9 @@ export class ProductsService {
     try {
       const product = await this._productRespository.findOne({ where: { id: input.productId } });
 
+      const pro = await this._productRespository.findOne({ where: { id: input.productId }, relations: ['category', 'subCategory'] });
+      // const pro = await this._productRespository.createQueryBuilder('category').leftJoinAndSelect('category', 'product.category').getOne();
+      // console.log('proo', pro);
       return product;
     } catch (error) {
       throw makeError(error);
@@ -62,6 +65,26 @@ export class ProductsService {
         categoryId: category.id,
         subCategoryId: subCategory.id,
       };
+    } catch (error) {
+      throw makeError(error);
+    }
+  }
+
+  async updateProduct(input: any) {
+    const { productId, productInfo } = input;
+    try {
+      const checkExisting = this._productRespository.findOne({ where: { id: productId } });
+
+      if (!checkExisting) {
+        throw new HttpException(PRODUCT_ERRORS.NOT_FOUND, HttpStatus.BAD_REQUEST);
+      }
+
+      await this._productRespository.update({ id: productId }, { ...productInfo });
+
+      const findUpdated = this._productRespository.findOne({ id: productId });
+
+      return findUpdated;
+
     } catch (error) {
       throw makeError(error);
     }

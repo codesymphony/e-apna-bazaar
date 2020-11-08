@@ -73,6 +73,7 @@ type ProductDTO {
   createdAt: String!
   updatedAt: String!
   version: Int!
+  category: [CategoryDTO!]!
 }
 
 type Query {
@@ -83,7 +84,7 @@ type Query {
   getAllCategories: [CategoryDTO!]!
   getAllSubCategories: [SubCategoryDTO!]!
   getAllProducts: [ProductDTO!]!
-  getProduct(input: ProductGetInput!): ProductDTO!
+  product(input: ProductGetInput!): ProductDTO!
 }
 
 input ProductGetInput {
@@ -99,6 +100,7 @@ type Mutation {
   createSubCategory(input: SubCategoryCreateInput!): SubCategoryDTO!
   deleteSubCategory(input: SubCategoryDeleteInput!): SubCategoryDTO!
   createProduct(input: ProductCreateInput!): ProductDTO!
+  updateProduct(input: ProductUpdateInput!): ProductDTO!
 }
 
 input SellerInput {
@@ -156,4 +158,9 @@ input ProductCreateInput {
   productDesc: String!
   categoryId: String!
   subCategoryId: String!
+}
+
+input ProductUpdateInput {
+  productId: String!
+  productInfo: ProductCreateInput!
 }
