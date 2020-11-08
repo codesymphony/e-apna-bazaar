@@ -19,10 +19,10 @@ export class SubCategoryResolver {
   }
 
   @Query(() => [SubCategoryDTO])
-  async getLinkedCategory(
+  async getSubCategoriesByCategory(
     @Args('categoryId') categoryId: string
   ) {
-    const result = this._subCatService.getLinkedSubCategories(categoryId);
+    const result = this._subCatService.getSubCategoriesByCategory(categoryId);
 
     return result;
   }

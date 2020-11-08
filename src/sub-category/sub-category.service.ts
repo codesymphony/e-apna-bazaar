@@ -26,13 +26,11 @@ export class SubCategoryService {
     }
   }
 
-  async getLinkedSubCategories(categoryId: string) {
+  async getSubCategoriesByCategory(categoryId: string) {
     try {
-
       const result = await this._subCatRepository.find({ where: { categoryId } });
 
       return result;
-
     } catch (error) {
       throw makeError(error);
     }

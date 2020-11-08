@@ -3,9 +3,8 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ProductCreateInput } from './inputs/product.create.input';
 import { ProductDTO } from './dto/product.dto';
 import { ProductsService } from './products.service';
-import { ProductGetInput } from './inputs/product.get.input';
+import { ProductGetInput, ProductGetMatchingInput } from './inputs/product.get.input';
 import { ProductUpdateInput } from './inputs/product.update.input';
-
 
 @Resolver(() => ProductDTO)
 export class ProductsResolver {
@@ -18,7 +17,14 @@ export class ProductsResolver {
     return results;
   }
 
+  @Query(() => [ProductDTO])
+  async getMatchingProducts(
+    @Args('input') input: ProductGetMatchingInput,
+  ) {
+    const results = await this._productService.getMatchingProducts(input);
 
+    return results;
+  }
 
   @Query(() => ProductDTO, { name: 'product' })
   async getProduct(@Args('input') input: ProductGetInput) {

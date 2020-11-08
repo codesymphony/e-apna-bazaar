@@ -83,11 +83,16 @@ type Query {
   getAllUsers: [UserDTO!]!
   signInUser(password: String!, email: String!): AuthInfoDTO!
   getAllCategories: [CategoryDTO!]!
-  getSubcategories(categoryId: String!): CategoryDTO!
   getAllSubCategories: [SubCategoryDTO!]!
-  getLinkedCategory(categoryId: String!): [SubCategoryDTO!]!
+  getSubCategoriesByCategory(categoryId: String!): [SubCategoryDTO!]!
   getAllProducts: [ProductDTO!]!
+  getMatchingProducts(input: ProductGetMatchingInput!): [ProductDTO!]!
   product(input: ProductGetInput!): ProductDTO!
+}
+
+input ProductGetMatchingInput {
+  categoryId: String!
+  subCategoryId: String
 }
 
 input ProductGetInput {
@@ -165,5 +170,12 @@ input ProductCreateInput {
 
 input ProductUpdateInput {
   productId: String!
-  productInfo: ProductCreateInput!
+  updates: ProductUpdates!
+}
+
+input ProductUpdates {
+  productName: String
+  productDesc: String
+  categoryId: String
+  subCategoryId: String
 }

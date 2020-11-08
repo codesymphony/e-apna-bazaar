@@ -4,7 +4,6 @@ import { CategoryService } from './category.service';
 import { CategoryDTO } from './dto/category.dto';
 import { CategoryCreateInput } from './inputs/category.create.input';
 import { CategoryDeleteInput } from './inputs/category.delete.input';
-
 @Resolver()
 export class CategoryResolver {
   constructor(
@@ -18,14 +17,14 @@ export class CategoryResolver {
     return result;
   }
 
-  @Query(() => CategoryDTO)
-  async getSubcategories(
-    @Args('categoryId') categoryId: string,
-  ) {
-    const result = await this._categoryService.getSubcategories({ categoryId });
+  // @Query(() => CategoryDTO)
+  // async getSubcategories(
+  //   @Args('categoryId') categoryId: string,
+  // ) {
+  //   const result = await this._categoryService.getSubcategories({ categoryId });
 
-    return result;
-  }
+  //   return result;
+  // }
 
   @Mutation(() => CategoryDTO)
   async createCategory(@Args('input') input: CategoryCreateInput) {
