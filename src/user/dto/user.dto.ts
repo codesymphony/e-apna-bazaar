@@ -26,27 +26,33 @@ export class UserDTO {
   @Field()
   readonly gender!: string
 
+  @Field()
+  readonly mobileNumber!: string
+
   @Field(() => Int)
   readonly version!: number
 
-  @Field({ nullable: true })
-  readonly aadhaarNumber!: string
+  @Field(() => Boolean)
+  readonly isActive!: boolean;
+
+  @Field(() => Boolean)
+  readonly isVerified!: boolean;
 
   @Field({ nullable: true })
-  readonly addressLine1!: string
+  readonly aadhaarNumber?: string
 
   @Field({ nullable: true })
-  readonly addressLine2!: string
+  readonly addressLine1?: string
 
   @Field({ nullable: true })
-  readonly city!: string
+  readonly addressLine2?: string
 
   @Field({ nullable: true })
-  readonly state!: string
+  readonly city?: string
 
   @Field({ nullable: true })
-  readonly country!: string
+  readonly state?: string
 
-  @Field()
-  readonly mobileNumber!: string
+  @Field({ nullable: true })
+  readonly country?: string
 }

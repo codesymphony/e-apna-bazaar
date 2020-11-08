@@ -13,7 +13,17 @@ import { ProductsModule } from './products/products.module';
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      autoSchemaFile: 'schema.gql'
+      playground: true,
+      installSubscriptionHandlers: true,
+      introspection: true,
+      autoSchemaFile: 'schema.gql',
+      context: async ({ req: request, res: response }) => {
+        return ({
+          request,
+          response,
+          headers: (request && request.headers) || { },
+        });
+      },
     }),
     TypeOrmModule.forRoot(),
     SellerModule,

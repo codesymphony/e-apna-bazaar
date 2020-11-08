@@ -1,4 +1,7 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+
+import { AuthGuard } from '@/guards/auth.guard';
 
 import { CategoryService } from './category.service';
 import { CategoryDTO } from './dto/category.dto';
@@ -11,6 +14,7 @@ export class CategoryResolver {
     private readonly _categoryService: CategoryService
   ) { }
 
+  @UseGuards(AuthGuard)
   @Query(() => [CategoryDTO])
   async getAllCategories() {
     const result = await this._categoryService.getAllCategories();
@@ -18,15 +22,16 @@ export class CategoryResolver {
     return result;
   }
 
-  @Query(() => CategoryDTO)
-  async getSubcategories(
-    @Args('categoryId') categoryId: string,
-  ) {
-    const result = await this._categoryService.getSubcategories({ categoryId });
+  // @Query(() => CategoryDTO)
+  // async getSubcategories(
+  //   @Args('categoryId') categoryId: string,
+  // ) {
+  //   const result = await this._categoryService.getSubcategories({ categoryId });
 
-    return result;
-  }
+  //   return result;
+  // }
 
+  @UseGuards(AuthGuard)
   @Mutation(() => CategoryDTO)
   async createCategory(@Args('input') input: CategoryCreateInput) {
     const result = await this._categoryService.createCategory(input);
@@ -34,6 +39,7 @@ export class CategoryResolver {
     return result;
   }
 
+  @UseGuards(AuthGuard)
   @Mutation(() => CategoryDTO)
   async deleteCategory(@Args('input') input: CategoryDeleteInput) {
     const result = await this._categoryService.deleteCategory(input);

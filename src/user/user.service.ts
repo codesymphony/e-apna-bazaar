@@ -28,26 +28,37 @@ export class UserService {
     }
   }
 
+  async findByEmail(email: string) {
+    try {
+      const existing = await this._userRepository.findOne({ where: { email } });
+
+      if (!existing) {
+        throw new HttpException(USER_ERRORS.NOT_FOUND, HttpStatus.NOT_FOUND);
+      }
+
+      return existing;
+    } catch (error) {
+      throw makeError(error);
+    }
+  }
+
   async signUpUser(input: CreateUserInput) {
     const { email, password } = input;
 
     try {
-
       const existing = await this._userRepository.findOne({ where: { email: email } });
 
       if (existing) {
         throw new HttpException(USER_ERRORS.ALREADY_EXISTS_WITH_EMAIL, HttpStatus.BAD_REQUEST);
       }
 
-      else {
-        await this._awsService.addUserToPool({ email, password });
+      await this._awsService.addUserToPool({ email, password });
 
-        const user = this._userRepository.create(omit(input, 'password'));
+      const user = this._userRepository.create(omit(input, 'password'));
 
-        await this._userRepository.save(user);
+      await this._userRepository.save(user);
 
-        return user;
-      }
+      return user;
     } catch (error) {
       throw makeError(error);
     }
@@ -55,13 +66,13 @@ export class UserService {
 
   async signInUser(email, password) {
     try {
-      const existing = await this._userRepository.findOne({ where: { 'email': email } });
-
-      if (!existing) {
-        throw new HttpException(USER_ERRORS.NOT_FOUND, HttpStatus.NOT_FOUND);
-      }
+      const existing = await this.findByEmail(email);
 
       const resultFromAws = await this._awsService.signIn({ email, password });
+
+      existing.isVerified = true;
+
+      await this._userRepository.save(existing);
 
       return {
         user: existing,

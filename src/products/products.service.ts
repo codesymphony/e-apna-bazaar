@@ -1,8 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindConditions, Repository } from 'typeorm';
 
-import { IProductCreateInput, IProductGetInput, IProductUpdateInput } from '@/typings';
+import {
+  IProductCreateInput, IProductGetInput, IProductUpdateInput, IProductGetMatchingInput
+} from '@/typings';
 import { makeError } from '@/utils';
 import { PRODUCT_ERRORS } from '@/errors';
 import { CategoryService } from '@/category/category.service';
@@ -22,6 +24,24 @@ export class ProductsService {
   async getAllProducts() {
     try {
       const products = await this._productRespository.find({});
+
+      return products;
+    } catch (error) {
+      throw makeError(error);
+    }
+  }
+
+  async getMatchingProducts(input: IProductGetMatchingInput) {
+    try {
+      const whereQuery: FindConditions<ProductEntity> = {
+        categoryId: input.categoryId,
+      };
+
+      if (input.subCategoryId) { whereQuery.subCategoryId = input.subCategoryId; }
+
+      const products = await this._productRespository.find({
+        where: whereQuery,
+      });
 
       return products;
     } catch (error) {
@@ -62,20 +82,20 @@ export class ProductsService {
   }
 
   async updateProduct(input: IProductUpdateInput) {
-    const { productId, productInfo } = input;
+    const { productId, updates } = input;
+  
     try {
-      const checkExisting = this._productRespository.findOne({ where: { id: productId } });
+      const existing = this._productRespository.findOne({ where: { id: productId } });
 
-      if (!checkExisting) {
+      if (!existing) {
         throw new HttpException(PRODUCT_ERRORS.NOT_FOUND, HttpStatus.BAD_REQUEST);
       }
 
-      await this._productRespository.update({ id: productId }, { ...productInfo });
+      await this._productRespository.update({ id: productId }, { ...updates });
 
-      const findUpdated = this._productRespository.findOne({ id: productId });
+      const updated = this._productRespository.findOne({ id: productId });
 
-      return findUpdated;
-
+      return updated;
     } catch (error) {
       throw makeError(error);
     }
