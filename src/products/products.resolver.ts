@@ -1,4 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+
+import { AuthGuard } from '@/guards/auth.guard';
 
 import { ProductCreateInput } from './inputs/product.create.input';
 import { ProductDTO } from './dto/product.dto';
@@ -10,6 +13,7 @@ import { ProductUpdateInput } from './inputs/product.update.input';
 export class ProductsResolver {
   constructor(private _productService: ProductsService) { }
 
+  @UseGuards(AuthGuard)
   @Query(() => [ProductDTO])
   async getAllProducts() {
     const results = await this._productService.getAllProducts();
@@ -17,6 +21,7 @@ export class ProductsResolver {
     return results;
   }
 
+  @UseGuards(AuthGuard)
   @Query(() => [ProductDTO])
   async getMatchingProducts(
     @Args('input') input: ProductGetMatchingInput,
@@ -26,13 +31,15 @@ export class ProductsResolver {
     return results;
   }
 
-  @Query(() => ProductDTO, { name: 'product' })
+  @UseGuards(AuthGuard)
+  @Query(() => ProductDTO)
   async getProduct(@Args('input') input: ProductGetInput) {
     const result = await this._productService.getProduct(input);
 
     return result;
   }
 
+  @UseGuards(AuthGuard)
   @Mutation(() => ProductDTO)
   async createProduct(@Args('input') input: ProductCreateInput) {
     const result = await this._productService.createProduct(input);
@@ -40,13 +47,11 @@ export class ProductsResolver {
     return result;
   }
 
+  @UseGuards(AuthGuard)
   @Mutation(() => ProductDTO)
-  async updateProduct(
-    @Args('input') input: ProductUpdateInput
-  ) {
+  async updateProduct(@Args('input') input: ProductUpdateInput) {
     const result = await this._productService.updateProduct(input);
 
     return result;
   }
-
 }

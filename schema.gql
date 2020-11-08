@@ -28,14 +28,16 @@ type UserDTO {
   password: String!
   lastName: String!
   gender: String!
+  mobileNumber: String!
   version: Int!
+  isActive: Boolean!
+  isVerified: Boolean!
   aadhaarNumber: String
   addressLine1: String
   addressLine2: String
   city: String
   state: String
   country: String
-  mobileNumber: String!
 }
 
 type TokensDTO {
@@ -87,7 +89,7 @@ type Query {
   getSubCategoriesByCategory(categoryId: String!): [SubCategoryDTO!]!
   getAllProducts: [ProductDTO!]!
   getMatchingProducts(input: ProductGetMatchingInput!): [ProductDTO!]!
-  product(input: ProductGetInput!): ProductDTO!
+  getProduct(input: ProductGetInput!): ProductDTO!
 }
 
 input ProductGetMatchingInput {

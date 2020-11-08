@@ -1,11 +1,17 @@
 
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, VersionColumn } from 'typeorm';
+import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn, VersionColumn } from 'typeorm';
+import { nanoid } from 'nanoid';
 
 import { UserGenderEnum } from '@typings/index';
 
 @Entity('user')
 export class UserEntity {
-  @PrimaryGeneratedColumn('uuid') id!: string
+  @PrimaryColumn('varchar', { length: 21 }) id!: string
+
+  @BeforeInsert()
+  setId() {
+    this.id = nanoid();
+  }
 
   @CreateDateColumn() createdAt!: string
 
@@ -38,7 +44,7 @@ export class UserEntity {
 
   @Column('varchar', { nullable: true }) country?: string
 
-  @Column('boolean', { default: false }) isActive!: boolean
+  @Column('boolean', { default: true }) isActive!: boolean
 
   @Column('boolean', { default: false }) isVerified!: boolean
 }
