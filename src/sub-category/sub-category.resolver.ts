@@ -18,6 +18,15 @@ export class SubCategoryResolver {
     return result;
   }
 
+  @Query(() => [SubCategoryDTO])
+  async getLinkedCategory(
+    @Args('categoryId') categoryId: string
+  ) {
+    const result = this._subCatService.getLinkedSubCategories(categoryId);
+
+    return result;
+  }
+
   @Mutation(() => SubCategoryDTO)
   async createSubCategory(
     @Args('input') input: SubCategoryCreateInput

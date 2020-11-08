@@ -56,10 +56,11 @@ export class CategoryService {
           'product.categoryId = category.id AND product.subCategoryId = subCategory.id',
         )
         .where('category.id = :categoryId', { categoryId: input.categoryId })
-        .andWhere('subCategory.subCategoryName like :subCategoryName', { subCategoryName: 'Shoes%' })
+        .andWhere('subCategory.subCategoryName like :subCategoryName', { subCategoryName: 'shoes%' })
         .printSql()
         .getOne();
 
+      console.log('sdada', joined);
       return joined;
     } catch (error) {
       throw makeError(error);

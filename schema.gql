@@ -73,8 +73,6 @@ type CategoryDTO {
   categoryName: String!
   createdAt: String!
   updatedAt: String!
-  version: Int!
-  category: [CategoryDTO!]!
   products: [ProductDTO!]
   subCategories: [SubCategoryDTO!]
 }
@@ -87,6 +85,7 @@ type Query {
   getAllCategories: [CategoryDTO!]!
   getSubcategories(categoryId: String!): CategoryDTO!
   getAllSubCategories: [SubCategoryDTO!]!
+  getLinkedCategory(categoryId: String!): [SubCategoryDTO!]!
   getAllProducts: [ProductDTO!]!
   product(input: ProductGetInput!): ProductDTO!
 }
