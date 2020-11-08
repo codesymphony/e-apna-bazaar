@@ -47,6 +47,11 @@ export interface IProductCreateInput {
   subCategoryId: string;
 }
 
+export interface IProductUpdateInput {
+  productId: string;
+  productInfo: IProductCreateInput;
+}
+
 export interface IProductGetInput {
   productId: string;
 }

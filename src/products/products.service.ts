@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { IProductCreateInput, IProductGetInput } from '@/typings';
+import { IProductCreateInput, IProductGetInput, IProductUpdateInput } from '@/typings';
 import { makeError } from '@/utils';
 import { PRODUCT_ERRORS } from '@/errors';
 import { CategoryService } from '@/category/category.service';
@@ -70,7 +70,7 @@ export class ProductsService {
     }
   }
 
-  async updateProduct(input: any) {
+  async updateProduct(input: IProductUpdateInput) {
     const { productId, productInfo } = input;
     try {
       const checkExisting = this._productRespository.findOne({ where: { id: productId } });
