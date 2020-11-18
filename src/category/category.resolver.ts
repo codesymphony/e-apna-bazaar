@@ -27,6 +27,13 @@ export class CategoryResolver {
     return result;
   }
 
+  @Query(() => CategoryDTO)
+  async getCatSubCat() {
+    const result = await this._categoryService.getAllCatSubCat();
+
+    return result;
+  }
+
   @Mutation(() => CategoryDTO)
   async createCategory(@Args('input') input: CategoryCreateInput) {
     const result = await this._categoryService.createCategory(input);

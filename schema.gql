@@ -84,6 +84,7 @@ type Query {
   signInUser(password: String!, email: String!): AuthInfoDTO!
   getAllCategories: [CategoryDTO!]!
   getSubcategories(categoryId: String!): CategoryDTO!
+  getCatSubCat: CategoryDTO!
   getAllSubCategories: [SubCategoryDTO!]!
   getLinkedCategory(categoryId: String!): [SubCategoryDTO!]!
   getAllProducts: [ProductDTO!]!

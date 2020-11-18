@@ -25,6 +25,20 @@ export class CategoryService {
     }
   }
 
+  async getAllCatSubCat() {
+    try {
+      const result = await this._categoryRespository
+        .createQueryBuilder('category')
+        .leftJoinAndSelect('category.subCategories', 'subCategory')
+        .printSql()
+        .getOne();
+
+      return result;
+    } catch (error) {
+      throw makeError(error);
+    }
+  }
+
   async getCategory(input: ICategoryGetInput) {
     try {
       const result = await this._categoryRespository.findOne({ where: { id: input.categoryId } });
@@ -60,7 +74,6 @@ export class CategoryService {
         .printSql()
         .getOne();
 
-      console.log('sdada', joined);
       return joined;
     } catch (error) {
       throw makeError(error);
